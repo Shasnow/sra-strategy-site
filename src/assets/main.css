@@ -1,8 +1,143 @@
-@import './base.css';
+:root {
+  --primary-color: #7c9ef5;
+  --primary-glow: rgba(124, 158, 245, 0.35);
+  --secondary-color: #e8b86d;
+  --accent-color: #a78bfa;
+  --background-color: #0d1117;
+  --background-soft: #161b27;
+  --background-card: #1a2035;
+  --background-card-hover: #1f2845;
+  --text-color: #e2e8f0;
+  --text-muted: #8892a4;
+  --border-color: rgba(124, 158, 245, 0.18);
+  --border-radius: 12px;
+  --border-radius-sm: 8px;
+  --box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  --box-shadow-hover: 0 8px 32px rgba(124, 158, 245, 0.2);
+}
+
+body {
+  background-color: var(--background-color);
+  background-image:
+    radial-gradient(ellipse at 20% 10%, rgba(124, 158, 245, 0.06) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 80%, rgba(167, 139, 250, 0.05) 0%, transparent 50%);
+  background-attachment: fixed;
+  color: var(--text-color);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  margin: 0;
+  height: 100vh;
+  overflow: hidden;
+}
 
 #app {
-  max-width: 1280px;
-  margin: 0 auto;
-  padding: 2rem;
-  font-weight: normal;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* 弹窗背景模糊 */
+.el-overlay {
+  backdrop-filter: blur(4px) !important;
+  -webkit-backdrop-filter: blur(4px) !important;
+  background-color: rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Element Plus 全局覆盖 */
+.el-card {
+  --el-card-bg-color: var(--background-card) !important;
+  --el-card-border-color: var(--border-color) !important;
+  border-radius: var(--border-radius) !important;
+  color: var(--text-color) !important;
+}
+
+.el-button--primary {
+  --el-button-bg-color: var(--primary-color) !important;
+  --el-button-border-color: var(--primary-color) !important;
+  --el-button-hover-bg-color: #9ab3f7 !important;
+  --el-button-hover-border-color: #9ab3f7 !important;
+  color: #0d1117 !important;
+  font-weight: 600 !important;
+}
+
+.el-dialog {
+  --el-dialog-bg-color: var(--background-soft) !important;
+  --el-dialog-border-radius: var(--border-radius) !important;
+  background-color: var(--background-soft) !important;
+  border: 1px solid var(--border-color) !important;
+}
+
+.el-dialog__header {
+  background-color: var(--background-soft) !important;
+  border-bottom: 1px solid var(--border-color) !important;
+  padding: 16px 20px !important;
+  margin-right: 0 !important;
+}
+
+.el-dialog__title {
+  color: var(--text-color) !important;
+}
+
+.el-dialog__headerbtn .el-dialog__close {
+  color: var(--text-muted) !important;
+}
+
+.el-dialog__body {
+  background-color: var(--background-soft) !important;
+  color: var(--text-color) !important;
+  padding: 20px !important;
+}
+
+.el-dialog__footer {
+  background-color: var(--background-soft) !important;
+  border-top: 1px solid var(--border-color) !important;
+  padding: 12px 20px !important;
+}
+
+.el-descriptions {
+  --el-descriptions-item-bordered-label-background: rgba(124, 158, 245, 0.08) !important;
+}
+
+.el-descriptions__label,
+.el-descriptions__content {
+  color: var(--text-color) !important;
+  border-color: var(--border-color) !important;
+  background-color: transparent !important;
+}
+
+.el-descriptions__label {
+  background-color: rgba(124, 158, 245, 0.08) !important;
+  font-weight: 500 !important;
+}
+
+.el-descriptions__body {
+  background-color: var(--background-card) !important;
+  border-color: var(--border-color) !important;
+}
+
+.el-descriptions__table {
+  border-color: var(--border-color) !important;
+}
+
+.el-upload-dragger {
+  background-color: rgba(124, 158, 245, 0.04) !important;
+  border-color: var(--border-color) !important;
+  color: var(--text-color) !important;
+}
+
+.el-upload-dragger:hover {
+  border-color: var(--primary-color) !important;
+}
+
+.el-upload__text {
+  color: var(--text-muted) !important;
+}
+
+.el-upload__text em {
+  color: var(--primary-color) !important;
+}
+
+@media (max-width: 768px) {
+  #app {
+    padding: 0.75rem;
+  }
 }
