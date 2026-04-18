@@ -1,6 +1,7 @@
 <script setup>
 import {getStrategies, getStrategyDetail} from "@/api/strategy.js";
 import {onMounted, ref} from "vue";
+import {ElLoading, ElMessage} from 'element-plus'
 import Header from "@/components/Header.vue";
 import Aside from "@/components/Aside.vue";
 import StrategyDetailModel from "@/components/StrategyDetailModel.vue";
@@ -46,6 +47,7 @@ const downloadJsonFile = (data, fileName) => {
 };
 
 const showStrategyDetail = async (id) => {
+  const loading = ElLoading.service({text: "Loading"})
   try {
     const res = await getStrategyDetail(id);
     strategyDetail.value = res.data;
@@ -53,16 +55,21 @@ const showStrategyDetail = async (id) => {
     strategyDetailVisible.value = true;
   } catch (err) {
     console.error("Failed to fetch strategy detail:", err);
+  } finally {
+    loading.close();
   }
 };
 
 const downloadStrategy = async (id) => {
   try {
+    ElMessage.info("正在下载攻略...");
     const res = await getStrategyDetail(id);
     const strategy = res.data;
     downloadJsonFile(strategy, `SRAstrategy_${strategy.title ?? id}.json`);
+    ElMessage.success("攻略下载成功！");
   } catch (err) {
     console.error("Failed to download strategy:", err);
+    ElMessage.error("攻略下载失败！")
   }
 };
 
@@ -79,23 +86,20 @@ onMounted(() => {
       </el-header>
       <el-container>
         <el-main>
-          <template v-if="strategyMetas.length > 0">
-            <el-space direction="vertical" fill>
-              <StrategyCard v-for="meta in strategyMetas"
-                            :key="meta.id"
-                            :meta="meta"
-                            @show-detail="showStrategyDetail"
-                            @download="downloadStrategy" />
-            </el-space>
-          </template>
+          <el-space direction="vertical" fill v-if="strategyMetas.length > 0">
+            <StrategyCard v-for="meta in strategyMetas"
+                          :key="meta.id"
+                          :meta="meta"
+                          @show-detail="showStrategyDetail"
+                          @download="downloadStrategy" />
+          </el-space>
           <el-card v-else>
             <p>No strategies available.</p>
           </el-card>
           <StrategyDetailModel
               v-model="strategyDetailVisible"
               :detail="strategyDetail"
-              @download="downloadStrategy"
-          />
+              @download="downloadStrategy"/>
           <UploadStrategyDialog v-model="uploadDialogVisible" />
         </el-main>
         <el-aside class="aside">

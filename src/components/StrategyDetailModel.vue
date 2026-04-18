@@ -52,3 +52,11 @@ const downloadDetail = () => {
   </el-dialog>
 </template>
 
+<style>
+@media (max-width: 768px) {
+  .el-dialog {
+    --el-dialog-width: 80% !important;
+  }
+}
+</style>
+
